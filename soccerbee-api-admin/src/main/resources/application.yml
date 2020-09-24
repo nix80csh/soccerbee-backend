@@ -1,0 +1,48 @@
+server:
+  port: 80
+  error:
+    include-stacktrace: never
+
+origin: "*"
+
+spring:
+  security:    user:      password: 52e23c6a-ff3b-44aa-9160-996e8c928641
+  profiles:
+    active: dev
+  application:
+    name: soccerbee-admin
+  jpa:
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate.format_sql: false    
+  jackson:
+    default-property-inclusion: non-null
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    url: jdbc:mysql://soccerbee-dev-v2.cidy7xazjee0.ap-northeast-2.rds.amazonaws.com:3306/soccerbee?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+    username: soccerbee
+    password: Tkzjqlepqm00!!
+aws:
+  ses:
+    key: AKIA3D45T4KQXXVPYIFO
+    secret: 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
+    sender: no-reply@soccer-bee.com
+
+cloudinary:
+  root-path: soccerbee-admin-dev
+  base-url: https://res.cloudinary.com/ubeeslab/image/upload
+      
+logging:
+  level:
+    root: info
+    org.springframework.beans: error
+    org.springframework.context: error
+    org.springframework.transaction: error
+    org.springframework.transaction.interceptor: error
+    org.springframework.web: error
+    org.hibernate: error
+  pattern:
+    console: '%black(%d{yyyy-MM-dd HH:mm:ss}) %green(%-5level) %cyan(%-40.40logger{40}) - %msg%n'

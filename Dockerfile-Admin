@@ -1,0 +1,14 @@
+FROM maven:3.6.2-jdk-8-slim AS build  
+COPY soccerbee-util /usr/src/app/soccerbee-util
+COPY soccerbee-core /usr/src/app/soccerbee-core
+COPY soccerbee-batch /usr/src/app/soccerbee-batch
+COPY soccerbee-api /usr/src/app/soccerbee-api
+COPY soccerbee-api-admin /usr/src/app/soccerbee-api-admin
+COPY pom.xml /usr/src/app
+  
+RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
+
+FROM openjdk:8  
+COPY --from=build /usr/src/app/soccerbee-api-admin/target/soccerbee-api-admin-0.0.1-SNAPSHOT.jar /usr/app/soccerbee-api-admin.jar  
+EXPOSE 80
+ENTRYPOINT ["java","-jar","/usr/app/soccerbee-api-admin.jar"] 
